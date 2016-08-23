@@ -17,6 +17,7 @@ public class TraditionalThreadCommunication {
 		}
 	}
 }
+//wait()和notify()必须放在synchronized所在的代码块中
 class Business{
 	private boolean bShouldSub = true;
 	public synchronized void sub(int i){
