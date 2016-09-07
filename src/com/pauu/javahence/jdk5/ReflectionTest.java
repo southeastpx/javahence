@@ -6,8 +6,8 @@ public class ReflectionTest {
 		Class cls1 = str1.getClass();
 		Class cls2 = String.class;
 		Class cls3 = Class.forName("java.lang.String");
-		System.out.println(cls1==cls2);//true
-		System.out.println(cls1==cls3);//true
+		System.out.println(cls1==cls2);//true,表示内存中只存储一份字节码文件
+		System.out.println(cls1==cls3);//true,表示内存中只存储一份字节码文件
 		System.out.println(cls1.isPrimitive());//false,String不是基本类型
 		System.out.println(int.class.isPrimitive());//true,int是基本类型
 		System.out.println(Integer.class.isPrimitive());//false,Integer不是基本类型
