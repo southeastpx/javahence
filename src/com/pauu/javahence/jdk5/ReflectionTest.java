@@ -1,5 +1,8 @@
 package com.pauu.javahence.jdk5;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
 public class ReflectionTest {
 	public static void main(String[] args) throws Exception{
 		String str1 = "abc";
@@ -15,5 +18,31 @@ public class ReflectionTest {
 		System.out.println(int.class == Integer.TYPE);//true
 		System.out.println(int[].class.isPrimitive());//false,数组不是基本类型
 		System.out.println(int[].class.isArray());//true
+		
+		Constructor constructor = String.class.getConstructor(StringBuffer.class);
+		String str2 = (String) constructor.newInstance(new StringBuffer("abc"));
+		System.out.println(str2.charAt(2));//c
+		
+		ReflectionPoint point = new ReflectionPoint(3, 5);
+		Field fieldY = point.getClass().getField("y");
+		System.out.println(fieldY.get(point));//5
+		//Field fieldX = point.getClass().getField("x");//报错，getField()方法不能访问private声明的变量
+		Field fieldX = point.getClass().getDeclaredField("x");
+		fieldX.setAccessible(true);//必须设置可访问，不然下行报错
+		System.out.println(fieldX.get(point));
+		
+		changeStringValue(point);
+		System.out.println(point);
+	}
+
+	private static void changeStringValue(Object point) throws Exception {
+		Field[] fields = point.getClass().getFields();
+		for(Field field : fields){
+			if(field.getType()==String.class){
+				String oldValue = (String) field.get(point);
+				String newValue = oldValue.replace('b', 'a');
+				field.set(point, newValue);
+			}
+		}
 	}
 }
