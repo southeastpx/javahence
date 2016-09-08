@@ -2,6 +2,7 @@ package com.pauu.javahence.jdk5;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class ReflectionTest {
 	public static void main(String[] args) throws Exception{
@@ -33,6 +34,11 @@ public class ReflectionTest {
 		
 		changeStringValue(point);
 		System.out.println(point);
+		
+		Method methodCharAt = String.class.getMethod("charAt",int.class);
+		System.out.println(methodCharAt.invoke(str1, 1));//b
+		System.out.println(methodCharAt.invoke(str1, new Object[]{2}));//c
+		
 	}
 
 	private static void changeStringValue(Object point) throws Exception {
