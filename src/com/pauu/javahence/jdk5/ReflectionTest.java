@@ -39,6 +39,14 @@ public class ReflectionTest {
 		System.out.println(methodCharAt.invoke(str1, 1));//b
 		System.out.println(methodCharAt.invoke(str1, new Object[]{2}));//c
 		
+		//TestArguments.main(new String[]{"aaa","bbb","ccc"});
+		//用反射调用其他类的main方法
+		String className = args[0];
+		Method mainMethod = Class.forName(className).getMethod("main", String[].class);
+		//下面两行效果相同
+		mainMethod.invoke(null, new Object[]{new String[]{"111","222","333"}});
+		mainMethod.invoke(null, (Object)new String[]{"111","222","333"});
+		
 	}
 
 	private static void changeStringValue(Object point) throws Exception {
@@ -49,6 +57,14 @@ public class ReflectionTest {
 				String newValue = oldValue.replace('b', 'a');
 				field.set(point, newValue);
 			}
+		}
+	}
+}
+
+class TestArguments{
+	public static void main(String[] args) {
+		for(String arg : args){
+			System.out.println(arg);
 		}
 	}
 }
