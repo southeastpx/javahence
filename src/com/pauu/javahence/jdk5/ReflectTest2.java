@@ -1,5 +1,6 @@
 package com.pauu.javahence.jdk5;
 
+import java.beans.PropertyDescriptor;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Collection;
@@ -41,7 +42,6 @@ public class ReflectTest2 {
 		System.out.println("ReflectionPoint类中未加入equals()和hashCode()时，HashSet的大小："+hashSet.size());//3
 		System.out.println("ReflectionPoint类中加入equals()和hashCode()后，ArrayList的大小："+arrayList.size());//4
 		System.out.println("ReflectionPoint类中加入equals()和hashCode()后，HashSet的大小："+hashSet.size());//2
-		
 		
 	}
 }
