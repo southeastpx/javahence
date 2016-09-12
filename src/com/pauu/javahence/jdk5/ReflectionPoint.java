@@ -4,6 +4,29 @@ public class ReflectionPoint {
 	private int x;
 	public int y;
 	public String str1 = "ball";
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ReflectionPoint other = (ReflectionPoint) obj;
+		if (x != other.x)
+			return false;
+		if (y != other.y)
+			return false;
+		return true;
+	}
 	public String str2 = "basketball";
 	public String str3 = "itcast";
 	public ReflectionPoint(int x, int y) {
