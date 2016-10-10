@@ -38,11 +38,46 @@ public class GenericTest {
 		for(Map.Entry<String,Integer> entry : entrySet ){
 			System.out.println(entry.getKey()+":"+entry.getValue());
 		}
+		
+		swap(new String[]{"a","b","c"},1,2);
+		//swap(new int[]{1,2,3},1,2);===>报错，泛型类型不能是基本数据类型，只能是引用数据类型
+		swap(new Integer[]{1,2,3},1,2);
+		
+		Object obj = "abc";
+		String a = autoConvert(obj);
 	}
 	
+	//打印任意集合中的元素
 	public static void printCollection(Collection<?> collection){
 		for(Object obj : collection){
 			System.out.println(obj);
+		}
+	}
+	
+	//使用另一种方式实现打印集合中的元素
+	public static <T> void printCollection2(Collection<T> collection){
+		for(Object obj : collection){
+			System.out.println(obj);
+		}
+	}
+	
+	//自定义泛型方法，交换任意类型的数组中的两个元素的位置
+	//自定义类型需要放在返回值之前
+	public static <T> void swap(T[] a,int i,int j){
+		T tmp = a[i];
+		a[i] = a[j];
+		a[j] = tmp;
+	}
+	
+	//自定义泛型方法，自动将Object类型的对象转换成其他类型
+	private static <T> T autoConvert(Object obj){
+		return (T) obj;
+	}
+	
+	//自定义泛型方法，将任意类型的数组中的的所有元素填充为相应类型的某个对象
+	private static <T> void fillArray(T[] arr,T obj){ 
+		for(int i=0;i<arr.length;i++){
+			arr[i] = obj;
 		}
 	}
 }
