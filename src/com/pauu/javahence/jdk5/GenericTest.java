@@ -1,11 +1,16 @@
 package com.pauu.javahence.jdk5;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 
 public class GenericTest {
 	public static void main(String[] args) throws Exception{
@@ -49,8 +54,20 @@ public class GenericTest {
 		GenericDao<ReflectionPoint> dao = new GenericDao<ReflectionPoint>();
 		dao.add(new ReflectionPoint(3, 5));
 		ReflectionPoint rp = dao.findById(1);
+		
+		//通过反射获取泛型中的实际参数类型
+		//Vector<Date> v1 = new Vector<Date>();
+		//v1.getClass()....===>由于泛型的去类型化，通过对象本身的字节码无法实现要求，只能借助方法实现
+		Method applyMethod = GenericTest.class.getMethod("applyVector", Vector.class);
+		Type[] types = applyMethod.getGenericParameterTypes();
+		ParameterizedType pType = (ParameterizedType) types[0];
+		System.out.println(pType.getActualTypeArguments()[0]);//class java.util.Date
+		System.out.println(pType.getRawType());//class java.util.Vector
 	}
 	
+	public static void applyVector(Vector<Date> v1){
+		
+	}
 	//打印任意集合中的元素
 	public static void printCollection(Collection<?> collection){
 		for(Object obj : collection){
