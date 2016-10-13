@@ -45,6 +45,10 @@ public class GenericTest {
 		
 		Object obj = "abc";
 		String a = autoConvert(obj);
+		
+		GenericDao<ReflectionPoint> dao = new GenericDao<ReflectionPoint>();
+		dao.add(new ReflectionPoint(3, 5));
+		ReflectionPoint rp = dao.findById(1);
 	}
 	
 	//打印任意集合中的元素
